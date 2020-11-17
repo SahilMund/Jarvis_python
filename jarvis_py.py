@@ -9,6 +9,8 @@ import webbrowser
 import os
 import smtplib
 import random
+import time
+
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 # print(voices[1].id)
@@ -64,8 +66,8 @@ def sendEmail(to, content):
 
 if __name__ == "__main__":
     wishMe()
-    #while True:
-    if 1:
+    #if 1:
+    while True:
         query = takeCommand().lower()
 
         # Logic for executing tasks based on query
@@ -112,3 +114,23 @@ if __name__ == "__main__":
             except Exception as e:
                 print(e)
                 speak("Sorry my friend harry bhai. I am not able to send this email")    
+                
+        elif 'timer' in query or 'stopwatch' in query:
+            speak("For how many minutes?")
+            sleep_time = takeCommand().lower()
+            sleep_time = sleep_time.replace('for', '')
+            sleep_time = sleep_time.replace('minutes', '')
+            sleep_time = sleep_time.replace('minute', '')
+            sleep_time = sleep_time.replace('in', '')
+
+            sleep_time = float(sleep_time)
+            sleep_time = sleep_time * 60
+            speak(f'I will remind you in {sleep_time} seconds')
+
+            time.sleep(sleep_time)
+            speak('Your time has been finished sir')
+                    
+                    
+        elif 'bye' in query:
+            speak('Thank you sir, I will take a leave')
+            break
